@@ -13,7 +13,7 @@ class ExposedProductRepositoryTest {
 
     @BeforeEach
     fun setup() {
-        DatabaseFactory.init()
+        DatabaseFactory.init(seedData = false)
     }
 
     @AfterEach
