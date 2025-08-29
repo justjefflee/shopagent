@@ -13,7 +13,7 @@ import org.jetbrains.exposed.v1.jdbc.update
 
 class ExposedProductRepository : ProductRepository {
 
-    override fun findById(id: Long): Product? {
+    override suspend fun findById(id: Long): Product? {
         return transaction {
             Products.selectAll().where { Products.id eq id }
                 .map { toProduct(it) }
@@ -21,14 +21,14 @@ class ExposedProductRepository : ProductRepository {
         }
     }
 
-    override fun findAll(): List<Product> {
+    override suspend fun findAll(): List<Product> {
         return transaction {
             Products.selectAll()
                 .map { toProduct(it) }
         }
     }
 
-    override fun save(product: Product): Product {
+    override suspend fun save(product: Product): Product {
         var productId = 0L
         transaction {
             productId = Products.insert {
@@ -40,7 +40,7 @@ class ExposedProductRepository : ProductRepository {
         return product.copy(id = productId)
     }
 
-    override fun update(product: Product): Product {
+    override suspend fun update(product: Product): Product {
         transaction {
             Products.update({ Products.id eq product.id }) {
                 it[name] = product.name
@@ -51,7 +51,7 @@ class ExposedProductRepository : ProductRepository {
         return product
     }
 
-    override fun delete(id: Long) {
+    override suspend fun delete(id: Long) {
         transaction {
             Products.deleteWhere { Products.id eq id }
         }

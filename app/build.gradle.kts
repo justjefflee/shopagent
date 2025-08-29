@@ -15,6 +15,7 @@ dependencies {
     // Project "app" depends on project "utils". (Project paths are separated with ":", so ":utils" refers to the top-level "utils" project.)
     implementation(project(":utils"))
     implementation(project(":data"))
+    testImplementation(project(":domain"))
 
     // LangChain4j 1.0.0 - Latest stable release
     implementation("dev.langchain4j:langchain4j:${langchain4jVersion}")
@@ -52,6 +53,7 @@ dependencies {
     //implementation("org.apache.tika:tika-core:2.9.1") // For PDF, DOCX, etc.
     //implementation("com.opencsv:opencsv:5.9") // CSV processing
     //implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3") // JSON
+    testImplementation(kotlin("test-junit5"))
 
 }
 
